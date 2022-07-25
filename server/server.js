@@ -1,6 +1,12 @@
+/* eslint-disable no-console */
 /* eslint-disable import/no-extraneous-dependencies */
-require('dotenv').config();
+import dotenv from 'dotenv';
+
+import app from './app';
+
 const chalk = require('chalk');
+
+dotenv.config();
 
 // UNCAUGHT EXCEPTION
 // Application need to be crashed then a tool will be needed to restart the app
@@ -10,8 +16,6 @@ process.on('uncaughtException', (err) => {
   console.log(chalk.red(err.stack));
   process.exit(1);
 });
-
-const app = require('./app');
 
 // START SERVER
 

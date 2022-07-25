@@ -1,9 +1,9 @@
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
-const dotenv = require('dotenv');
-const morgan = require('morgan');
-const helmet = require('helmet');
+import express from 'express';
+import cors from 'cors';
+import path from 'path';
+import dotenv from 'dotenv';
+import morgan from 'morgan';
+import helmet from 'helmet';
 
 dotenv.config();
 
@@ -41,4 +41,4 @@ app.get('/api/v1/home', (req, res) => {
 
 // Route Middleware
 
-module.exports = app;
+export default app;
