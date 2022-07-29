@@ -1,16 +1,16 @@
-/* eslint-disable strict */
+/* eslint-disable lines-around-directive */
 /* eslint-disable valid-jsdoc */
 /* eslint-disable no-unused-vars */
 
+// eslint-disable-next-line strict
 'use strict';
-
 const {
   Model
 } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   // eslint-disable-next-line require-jsdoc
-  class Group extends Model {
+  class UserGroup extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -18,20 +18,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Group.belongsToMany(models.User, {
-        through: 'UserGroup',
-        as: 'users',
-        foreignKey: 'user_id',
-      });
     }
   }
-  Group.init({
-    name: DataTypes.STRING,
-    createdBy: DataTypes.STRING
+  UserGroup.init({
+    user_id: DataTypes.INTEGER,
+    group_id: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Group',
-    timestamps: true,
+    modelName: 'UserGroup',
   });
-  return Group;
+  return UserGroup;
 };
