@@ -6,6 +6,9 @@
 
 const UserServices = require('../services/user.services');
 
+const { successResMsg } = require('../utils/libs/response');
+const AppError = require('../utils/libs/appError');
+
 class UserController {
 //   async getAll(req, res) {
 //     const users = await UserServices.getAll();
@@ -17,24 +20,27 @@ class UserController {
   //     res.status(200).json(user);
   //   }
 
-  async signUp(req, res) {
+  async signUp(req, res, next) {
     try {
       const user = await UserServices.addUser(req.body);
-      res.status(201).json(user);
+      return successResMsg(res, 201, {
+        message: 'User created successfully',
+        user,
+      });
     } catch (error) {
-      res.status(500).json(error);
+      return next(new AppError(error.message, 500));
     }
   }
 
-  async signIn(req, res) {
+  async signIn(req, res, next) {
     try {
       const user = await UserServices.login(req.body);
-      res.status(200).json(user);
-    } catch (error) {
-      console.log('message:', error.message);
-      res.status(500).json({
-        message: error.message,
+      return successResMsg(res, 200, {
+        message: 'User logged in successfully',
+        user,
       });
+    } catch (error) {
+      return next(new AppError(Error, error.status));
     }
   }
 

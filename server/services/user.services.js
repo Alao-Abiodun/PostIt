@@ -40,6 +40,9 @@ class UserService {
 
   async addUser(data) {
     try {
+      if (!data.username || !data.password || !data.email) {
+        throw new Error('Missing required fields');
+      }
       return await User.create(data);
     } catch (error) {
       throw error;
