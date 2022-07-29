@@ -29,6 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // Import all routes
 const { userRoute } = require('./routes/user.route');
+const { groupRoute } = require('./routes/group.route');
 
 // default route
 app.get('/', (req, res) => {
@@ -42,6 +43,9 @@ app.get('/api/v1/home', (req, res) => {
 
 // User route
 app.use('/api/v1/users', userRoute);
+
+// Group route
+app.use('/api/v1/group', groupRoute);
 
 // Route Middleware
 module.exports = app;
