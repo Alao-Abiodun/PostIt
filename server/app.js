@@ -1,9 +1,9 @@
-import express from 'express';
-import cors from 'cors';
-import path from 'path';
-import dotenv from 'dotenv';
-import morgan from 'morgan';
-import helmet from 'helmet';
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const dotenv = require('dotenv');
+const morgan = require('morgan');
+const helmet = require('helmet');
 
 dotenv.config();
 
@@ -28,6 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Import all routes
+const { userRoute } = require('./routes/user.route');
 
 // default route
 app.get('/', (req, res) => {
@@ -39,6 +40,8 @@ app.get('/api/v1/home', (req, res) => {
   res.json({ message: 'Welcome to PostIt API v1' });
 });
 
-// Route Middleware
+// User route
+app.use('/api/v1/users', userRoute);
 
-export default app;
+// Route Middleware
+module.exports = app;

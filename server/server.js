@@ -1,10 +1,13 @@
+/* eslint-disable max-len */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable no-unused-vars */
+/* eslint-disable import/extensions */
 /* eslint-disable no-console */
 /* eslint-disable import/no-extraneous-dependencies */
-import dotenv from 'dotenv';
-
-import app from './app';
-
+const dotenv = require('dotenv');
 const chalk = require('chalk');
+const app = require('./app');
+const { sequelize } = require('../database/models/index');
 
 dotenv.config();
 
@@ -38,12 +41,31 @@ const port = normalizePort(process.env.PORT || 1212);
  * Event listener for HTTP server "listening" event.
  */
 
-const server = app.listen(port, async () => {
-  const address = server.address();
-  // eslint-disable-next-line max-len
-  const bind = typeof address === 'string' ? `pipe ${address}` : `port ${address.port}`;
-  console.log(`Listening on ${chalk.green(bind)}`);
-});
+// const server = app.listen(port, async () => {
+//   const address = server.address();
+//   // eslint-disable-next-line max-len
+//   const bind = typeof address === 'string' ? `pipe ${address}` : `port ${address.port}`;
+//   console.log(`Listening on ${chalk.green(bind)}`);
+// });
+let server;
+
+(async () => {
+  try {
+    await sequelize.authenticate();
+    // app.listen(port, () => {
+    //   console.log(`Server is running on port ${port}`);
+    // });
+    server = app.listen(port, () => {
+      const address = server.address();
+      // eslint-disable-next-line max-len
+      const bind = typeof address === 'string' ? `pipe ${address}` : `port ${address.port}`;
+      console.log(`Listening on ${chalk.green(bind)}`);
+    });
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+})();
 
 // Catching Exception
 
