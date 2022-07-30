@@ -23,15 +23,17 @@ class GroupController {
     }
   }
 
-  //   async addUserToGroup(req, res) {
-  //     const group = await GroupServices.addUserToGroup(req.params.id, req.body);
-  //     res.status(200).json(group);
-  //   }
-
-  //   async removeUserFromGroup(req, res) {
-  //     const group = await GroupServices.removeUserFromGroup(req.params.id, req.body);
-  //     res.status(200).json(group);
-  //   }
+  async addUserToGroup(req, res, next) {
+    try {
+      const group = await GroupServices.addUserToGroup(req.params.id, req.body);
+      return successResMsg(res, 201, {
+        message: 'User added to group successfully',
+        group,
+      });
+    } catch (error) {
+      return next(new AppError(error.message, 500));
+    }
+  }
 }
 
 module.exports = new GroupController();

@@ -3,7 +3,7 @@
 /* eslint-disable no-return-await */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-unused-vars */
-const { Group, User } = require('../../database/models/index');
+const { Group, User, UserGroup } = require('../../database/models/index');
 
 class GroupService {
   async createGroup(data) {
@@ -13,9 +13,12 @@ class GroupService {
     return await Group.create(data);
   }
 
-  //   async addUserToGroup(userId, groupId) {
-  //     return await User.addGroup(userId, groupId);
-  //   }
+  async addUserToGroup(data) {
+    // if (id) {
+    //   throw new Error('Group id is required');
+    // }
+    return await UserGroup.create(data);
+  }
 
 //   async removeUserFromGroup(userId, groupId) {
 //     return await User.removeGroup(userId, groupId);
