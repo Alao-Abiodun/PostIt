@@ -1,7 +1,9 @@
-/* eslint-disable strict */
+/* eslint-disable require-jsdoc */
+/* eslint-disable lines-around-directive */
 /* eslint-disable valid-jsdoc */
 /* eslint-disable no-unused-vars */
 
+// eslint-disable-next-line strict
 'use strict';
 
 const {
@@ -9,8 +11,7 @@ const {
 } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  // eslint-disable-next-line require-jsdoc
-  class Group extends Model {
+  class Message extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -18,25 +19,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Group.belongsToMany(models.User, {
-        through: 'UserGroup',
-        as: 'users',
-        foreignKey: 'user_id',
-      });
-
-      Group.hasMany(models.Message, {
-        as: 'messages',
-        foreignKey: 'group_id',
-      });
     }
   }
-  Group.init({
-    name: DataTypes.STRING,
-    createdBy: DataTypes.STRING
+  Message.init({
+    messsage: DataTypes.STRING,
+    user_id: DataTypes.INTEGER,
+    group_id: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Group',
+    modelName: 'Message',
     timestamps: true,
   });
-  return Group;
+  return Message;
 };
