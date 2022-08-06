@@ -1,3 +1,8 @@
+/* eslint-disable eol-last */
+/* eslint-disable no-unused-vars */
+/* eslint-disable lines-around-directive */
+/* eslint-disable strict */
+'use strict';
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
